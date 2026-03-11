@@ -29,6 +29,11 @@
         nav a:hover { opacity: .4; }
         .logo { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; letter-spacing: .5em; text-transform: uppercase; text-align: center; }
         .bag-count { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; background: var(--charcoal); color: var(--oat); border-radius: 50%; font-size: 7px; margin-left: 6px; }
+        /* Hamburger button — hidden on desktop */
+        .nav-menu-btn { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+        .nav-menu-btn span { display: block; width: 22px; height: 1.5px; background: var(--charcoal); transition: all .3s; }
+        #mobile-menu { display: none; }
+        #mobile-menu.open { display: block !important; }
 
         /* HERO */
         .hero { position: relative; height: calc(100vh - 72px); overflow: hidden; display: flex; align-items: flex-end; background: #C8C3B8; }
@@ -44,7 +49,7 @@
         .hero-sidebar { writing-mode: vertical-rl; font-size: 8px; letter-spacing: .4em; text-transform: uppercase; color: rgba(240,237,229,.4); font-weight: 300; }
 
         /* FILTER */
-        .filter-strip { position: sticky; top: 72px; z-index: 90; background: rgba(250,248,244,.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 16px 48px; }
+        .filter-strip { position: sticky; top: 72px; z-index: 90; background: rgba(250,248,244,.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 16px 48px; overflow-x: auto; }
         .filter-inner { display: flex; justify-content: center; gap: 52px; font-size: 9px; letter-spacing: .28em; text-transform: uppercase; font-weight: 500; }
         .filter-item { cursor: pointer; color: var(--mid-grey); transition: color .25s; padding-bottom: 2px; }
         .filter-item.active { color: var(--charcoal); border-bottom: 1px solid var(--charcoal); }
@@ -148,6 +153,151 @@
         ::-webkit-scrollbar { width: 3px; }
         ::-webkit-scrollbar-track { background: var(--oat); }
         ::-webkit-scrollbar-thumb { background: var(--gold); }
+
+        /* ══════════════════════════════════════════
+           RESPONSIVE — TABLET  ≤ 1024px
+           ══════════════════════════════════════════ */
+        @media (max-width: 1024px) {
+            nav { padding: 0 28px; }
+            .nav-left { gap: 20px; }
+            .nav-right { gap: 20px; }
+
+            .hero-content { padding: 0 40px 56px; }
+
+            .filter-strip { padding: 14px 28px; }
+            .filter-inner { gap: 28px; overflow-x: auto; justify-content: flex-start; padding-bottom: 2px; }
+            .filter-inner::-webkit-scrollbar { display: none; }
+
+            .section-wrap { padding: 64px 28px 0; }
+
+            .textures-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .texture-card:first-child { grid-column: 1 / -1; aspect-ratio: 16/9; }
+            .texture-card:not(:first-child) { aspect-ratio: 3/4; }
+
+            .styling-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+            .arrivals-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+            .story-section { padding: 72px 28px; }
+            .story-inner { gap: 48px; }
+
+            .newsletter-section { padding: 72px 28px; gap: 48px; }
+
+            footer { padding: 56px 28px 28px; }
+            .footer-top { grid-template-columns: 1fr 1fr; gap: 36px; }
+        }
+
+        /* ══════════════════════════════════════════
+           RESPONSIVE — MOBILE  ≤ 680px
+           ══════════════════════════════════════════ */
+        @media (max-width: 680px) {
+            /* Announce */
+            .announce { font-size: 8px; letter-spacing: .2em; padding: 9px 16px; }
+
+            /* Nav */
+            nav {
+                padding: 0 20px;
+                height: 60px;
+                grid-template-columns: auto 1fr auto;
+            }
+            .nav-menu-btn { display: flex; }
+            .nav-left { display: none; }
+            .nav-right { gap: 0; }
+            .nav-right a:first-child { display: none; }
+            .logo { font-size: 22px; letter-spacing: .4em; text-align: center; }
+
+            /* Hero */
+            .hero { height: 92svh; align-items: flex-end; }
+            .hero-content { padding: 0 20px 40px; flex-direction: column; align-items: flex-start; gap: 0; }
+            .hero-sidebar { display: none; }
+            .hero-eyebrow { font-size: 8px; letter-spacing: .35em; margin-bottom: 14px; }
+            .hero-title { font-size: clamp(36px, 10vw, 52px); margin-bottom: 28px; }
+            .hero-cta { padding: 13px 32px; font-size: 8px; letter-spacing: .3em; }
+
+            /* Filter strip */
+            .filter-strip { top: 60px; padding: 12px 20px; }
+            .filter-inner { gap: 20px; font-size: 8px; letter-spacing: .2em; }
+
+            /* Sections */
+            .section-wrap { padding: 52px 20px 0; }
+            .section-label { font-size: 8px; letter-spacing: .35em; margin-bottom: 28px; }
+            .section-header { margin-bottom: 24px; }
+
+            /* Featured Textures — single column stack */
+            .textures-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .texture-card:first-child { aspect-ratio: 3/4; grid-column: auto; }
+            .texture-card:not(:first-child) { aspect-ratio: 3/4; }
+            .texture-name { font-size: 18px; }
+            .texture-card-overlay { padding: 20px; }
+
+            /* Styling Guide — single scrollable row */
+            .styling-grid {
+                grid-template-columns: repeat(3, 72vw);
+                overflow-x: auto;
+                gap: 10px;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 8px;
+            }
+            .styling-grid::-webkit-scrollbar { display: none; }
+            .style-card { scroll-snap-align: start; }
+            .style-card-img { aspect-ratio: 3/4; }
+
+            /* Products — 2-column grid */
+            .arrivals-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .product-name { font-size: 9px; letter-spacing: .12em; }
+            .product-origin { font-size: 9px; }
+            .product-price { font-size: 11px; }
+            /* Always show quick-view label on mobile (no hover) */
+            .quick-view { opacity: 1; transform: translateY(0); font-size: 6px; padding: 9px; }
+
+            /* Story — stack vertically, image first on mobile */
+            .story-section { margin-top: 52px; padding: 52px 20px; }
+            .story-inner {
+                grid-template-columns: 1fr;
+                gap: 36px;
+            }
+            .story-inner .story-text { order: 2; max-width: 100%; }
+            .story-inner .story-img-wrap { order: 1; aspect-ratio: 4/5; }
+            .story-title { font-size: clamp(32px, 8vw, 48px); }
+            .story-body { font-size: 13px; }
+            .story-badge { padding: 14px; font-size: 7px; bottom: 16px; right: 16px; }
+
+            /* Newsletter — stack */
+            .newsletter-section {
+                grid-template-columns: 1fr;
+                padding: 52px 20px;
+                gap: 32px;
+            }
+            .newsletter-title { font-size: 34px; }
+
+            /* Footer */
+            footer { padding: 48px 20px 24px; }
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .footer-logo { font-size: 26px; }
+            .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+
+            /* Fade animation — reduce distance on mobile */
+            .fade-up { transform: translateY(16px); }
+        }
+
+        /* ══════════════════════════════════════════
+           RESPONSIVE — SMALL MOBILE  ≤ 380px
+           ══════════════════════════════════════════ */
+        @media (max-width: 380px) {
+            .hero-title { font-size: 34px; }
+            .arrivals-grid { grid-template-columns: 1fr; }
+            .textures-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -157,6 +307,11 @@
     </div>
 
     <nav>
+        <!-- Mobile: hamburger icon (hidden on desktop via CSS) -->
+        <button class="nav-menu-btn" aria-label="Menu" onclick="document.getElementById('mobile-menu').classList.toggle('open')">
+            <span></span><span></span><span></span>
+        </button>
+
         <div class="nav-left">
             <a href="#">Shop the Edit</a>
             <a href="#">Craft</a>
@@ -168,6 +323,21 @@
             <a href="#">Bag <span class="bag-count">1</span></a>
         </div>
     </nav>
+
+    <!-- Mobile slide-down menu -->
+    <div id="mobile-menu" style="
+        display:none; position:fixed; top:60px; left:0; right:0; z-index:99;
+        background: rgba(240,237,229,0.98); backdrop-filter:blur(20px);
+        border-bottom: 1px solid var(--border);
+        padding: 24px 24px 32px;
+    ">
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:20px;">
+            <li><a href="#" style="text-decoration:none; color:var(--charcoal); font-size:10px; letter-spacing:.3em; text-transform:uppercase; font-weight:500;">Shop the Edit</a></li>
+            <li><a href="#" style="text-decoration:none; color:var(--charcoal); font-size:10px; letter-spacing:.3em; text-transform:uppercase; font-weight:500;">Craft</a></li>
+            <li><a href="#" style="text-decoration:none; color:var(--charcoal); font-size:10px; letter-spacing:.3em; text-transform:uppercase; font-weight:500;">Sustainability</a></li>
+            <li><a href="#" style="text-decoration:none; color:var(--charcoal); font-size:10px; letter-spacing:.3em; text-transform:uppercase; font-weight:500;">Search</a></li>
+        </ul>
+    </div>
 
 
     <!-- ╔══════════════════════════════════════════════════╗
