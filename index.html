@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naro’s | Modern Tussar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #F2F0EA; 
+            --charcoal: #2D2D2D; /* Targeted Charcoal color */
+        }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-base); 
+            color: var(--charcoal); 
+        }
+        h1, h2, h3, .brand-font { font-family: 'Playfair Display', serif; color: var(--charcoal); }
+        .text-charcoal { color: var(--charcoal); }
+        .border-charcoal { border-color: var(--charcoal); }
+        .bg-charcoal { background-color: var(--charcoal); }
+        
+        /* Centering Logic for Nav */
+        .nav-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <nav class="sticky top-0 z-50 bg-[#F2F0EA]/95 backdrop-blur-md px-8 py-6 nav-grid border-b border-gray-200">
+        <div class="flex space-x-8 text-[10px] uppercase tracking-[0.2em] font-medium hidden md:flex text-charcoal">
+            <a href="#" class="hover:opacity-50 transition">Shop the Edit</a>
+            <a href="#" class="hover:opacity-50 transition">Craft</a>
+            <a href="#" class="hover:opacity-50 transition">Sustainability</a>
+        </div>
+        
+        <div class="text-3xl tracking-[0.5em] font-bold uppercase brand-font text-charcoal">Naro’s</div>
+        
+        <div class="flex justify-end items-center space-x-6 text-[10px] uppercase tracking-[0.2em] font-medium text-charcoal">
+            <a href="#" class="hidden md:block hover:opacity-50 transition">Search</a>
+            <a href="#" class="flex items-center">
+                <span>Bag (1)</span>
+            </a>
+        </div>
+    </nav>
+
+    <header class="relative h-[85vh] flex items-center justify-center overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?auto=format&fit=crop&q=80&w=2000" 
+             class="absolute inset-0 w-full h-full object-cover" alt="Hero Textile">
+        <div class="absolute inset-0 bg-black/10"></div>
+        
+        <div class="relative text-center px-6 max-w-3xl">
+            <h1 class="text-white text-5xl md:text-7xl mb-8 leading-tight italic drop-shadow-lg">
+                The Raw Elegance of Tussar.
+            </h1>
+            <p class="text-white uppercase tracking-[0.4em] text-[10px] mb-10 font-medium">Hand-loomed silk for the modern wardrobe.</p>
+            <button class="bg-transparent border border-white text-white px-10 py-4 text-[10px] uppercase tracking-[0.3em] hover:bg-white hover:text-charcoal transition-all duration-500">
+                Explore the Collection
+            </button>
+        </div>
+    </header>
+
+    <section class="max-w-7xl mx-auto px-8 py-24">
+        <h2 class="text-center text-[10px] uppercase tracking-[0.5em] mb-20 text-gray-500 font-bold">Featured Textures</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            
+            <div class="group">
+                <div class="aspect-[4/5] overflow-hidden mb-8 bg-white shadow-sm p-3">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=800" 
+                         class="w-full h-full object-cover grayscale-[20%]" alt="Texture 1">
+                </div>
+                <h3 class="text-lg mb-2 font-medium uppercase tracking-wider text-[12px] text-charcoal">Natural Slub Tussar</h3>
+                <p class="text-[9px] uppercase tracking-widest text-gray-400 border-b border-gray-300 inline-block pb-1">View Details</p>
+            </div>
+
+            <div class="group">
+                <div class="aspect-[4/5] overflow-hidden mb-8 bg-white shadow-sm p-3">
+                    <img src="https://images.unsplash.com/photo-1505330622279-bf7d7fc918f4?auto=format&fit=crop&q=80&w=800" 
+                         class="w-full h-full object-cover grayscale-[20%]" alt="Texture 2">
+                </div>
+                <h3 class="text-lg mb-2 font-medium uppercase tracking-wider text-[12px] text-charcoal text-center md:text-left">Hand-Painted Kalamkari</h3>
+                <p class="text-[9px] uppercase tracking-widest text-gray-400 border-b border-gray-300 inline-block pb-1">View Details</p>
+            </div>
+
+            <div class="group">
+                <div class="aspect-[4/5] overflow-hidden mb-8 bg-white shadow-sm p-3">
+                    <img src="https://images.unsplash.com/photo-1590736962234-4066986504a3?auto=format&fit=crop&q=80&w=800" 
+                         class="w-full h-full object-cover grayscale-[20%]" alt="Texture 3">
+                </div>
+                <h3 class="text-lg mb-2 font-medium uppercase tracking-wider text-[12px] text-charcoal">Minimalist Copper Border</h3>
+                <p class="text-[9px] uppercase tracking-widest text-gray-400 border-b border-gray-300 inline-block pb-1">View Details</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="bg-white py-24">
+        <div class="max-w-7xl mx-auto px-8">
+            <h2 class="text-center text-[10px] uppercase tracking-[0.5em] mb-20 text-gray-400 font-bold">Styling Guide</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-[#F2F0EA] p-10 flex flex-col items-center">
+                    <img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&q=80&w=600" class="w-full h-72 object-cover mb-8 mix-blend-multiply opacity-80" alt="Style 1">
+                    <p class="text-[10px] uppercase tracking-[0.2em] font-semibold text-charcoal">The Professional Edit</p>
+                </div>
+                <div class="bg-[#F2F0EA] p-10 flex flex-col items-center">
+                    <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&q=80&w=600" class="w-full h-72 object-cover mb-8 mix-blend-multiply opacity-80" alt="Style 2">
+                    <p class="text-[10px] uppercase tracking-[0.2em] font-semibold text-charcoal">Modern Minimalism</p>
+                </div>
+                <div class="bg-[#F2F0EA] p-10 flex flex-col items-center">
+                    <img src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?auto=format&fit=crop&q=80&w=600" class="w-full h-72 object-cover mb-8 mix-blend-multiply opacity-80" alt="Style 3">
+                    <p class="text-[10px] uppercase tracking-[0.2em] font-semibold text-charcoal">Evening Muse</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-charcoal text-[#F2F0EA] py-24 px-12">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start">
+            <div class="mb-12 md:mb-0">
+                <div class="text-3xl tracking-[0.5em] font-bold uppercase brand-font mb-8">Naro’s</div>
+                <p class="text-[10px] uppercase tracking-[0.3em] max-w-xs leading-loose opacity-60">
+                    Crafting heritage since 2026. A collective dedicated to the soul of wild silk.
+                </p>
+            </div>
+            <div class="flex space-x-24 text-[10px] uppercase tracking-[0.3em]">
+                <div class="space-y-6">
+                    <h4 class="font-bold opacity-100 mb-8">Social</h4>
+                    <a href="#" class="block opacity-60 hover:opacity-100">About</a>
+                    <a href="#" class="block opacity-60 hover:opacity-100">Blogs</a>
+                    <a href="#" class="block opacity-60 hover:opacity-100">Contact</a>
+                </div>
+                <div class="space-y-6">
+                    <h4 class="font-bold opacity-100 mb-8">Service</h4>
+                    <a href="#" class="block opacity-60 hover:opacity-100">Shipping</a>
+                    <a href="#" class="block opacity-60 hover:opacity-100">Returns</a>
+                    <a href="#" class="block opacity-60 hover:opacity-100">FAQ</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
