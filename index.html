@@ -3,145 +3,524 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Naro’s | Modern Tussar</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>Naro's | The Tussar Collective</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-base: #F2F0EA; 
-            --charcoal: #2D2D2D; /* Targeted Charcoal color */
+            --oat: #F0EDE5;
+            --warm-white: #FAF8F4;
+            --charcoal: #1E1E1C;
+            --mid-grey: #6B6860;
+            --gold: #B09060;
+            --border: rgba(30,30,28,0.1);
         }
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: var(--bg-base); 
-            color: var(--charcoal); 
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Jost', sans-serif; background: var(--oat); color: var(--charcoal); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+        /* ANNOUNCEMENT */
+        .announce { background: var(--charcoal); color: var(--oat); text-align: center; padding: 10px 24px; font-size: 9px; letter-spacing: .35em; text-transform: uppercase; font-weight: 300; }
+
+        /* NAV */
+        nav { position: sticky; top: 0; z-index: 100; background: rgba(240,237,229,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 48px; height: 72px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+        .nav-left, .nav-right { display: flex; gap: 36px; font-size: 9px; letter-spacing: .28em; text-transform: uppercase; font-weight: 500; }
+        .nav-right { justify-content: flex-end; align-items: center; }
+        nav a { text-decoration: none; color: var(--charcoal); transition: opacity .25s; }
+        nav a:hover { opacity: .4; }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; letter-spacing: .5em; text-transform: uppercase; text-align: center; }
+        .bag-count { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; background: var(--charcoal); color: var(--oat); border-radius: 50%; font-size: 7px; margin-left: 6px; }
+
+        /* HERO */
+        .hero { position: relative; height: calc(100vh - 72px); overflow: hidden; display: flex; align-items: flex-end; background: #C8C3B8; }
+        .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: slowzoom 22s ease-in-out infinite alternate; }
+        @keyframes slowzoom { from { transform: scale(1); } to { transform: scale(1.07); } }
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,18,14,.72) 0%, rgba(20,18,14,.18) 45%, transparent 100%); }
+        .hero-content { position: relative; z-index: 2; width: 100%; padding: 0 72px 72px; display: flex; justify-content: space-between; align-items: flex-end; }
+        .hero-text { max-width: 560px; }
+        .hero-eyebrow { font-size: 9px; letter-spacing: .5em; text-transform: uppercase; color: rgba(240,237,229,.65); font-weight: 300; margin-bottom: 20px; }
+        .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(52px, 6vw, 88px); font-weight: 300; font-style: italic; color: #FAF8F4; line-height: 1.05; margin-bottom: 36px; }
+        .hero-cta { display: inline-block; padding: 14px 44px; border: 1px solid rgba(240,237,229,.7); color: var(--oat); font-size: 9px; letter-spacing: .4em; text-transform: uppercase; font-weight: 400; text-decoration: none; transition: all .5s ease; background: transparent; cursor: pointer; }
+        .hero-cta:hover { background: var(--oat); color: var(--charcoal); border-color: var(--oat); }
+        .hero-sidebar { writing-mode: vertical-rl; font-size: 8px; letter-spacing: .4em; text-transform: uppercase; color: rgba(240,237,229,.4); font-weight: 300; }
+
+        /* FILTER */
+        .filter-strip { position: sticky; top: 72px; z-index: 90; background: rgba(250,248,244,.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 16px 48px; }
+        .filter-inner { display: flex; justify-content: center; gap: 52px; font-size: 9px; letter-spacing: .28em; text-transform: uppercase; font-weight: 500; }
+        .filter-item { cursor: pointer; color: var(--mid-grey); transition: color .25s; padding-bottom: 2px; }
+        .filter-item.active { color: var(--charcoal); border-bottom: 1px solid var(--charcoal); }
+        .filter-item:hover { color: var(--charcoal); }
+
+        /* LAYOUT */
+        .section-wrap { padding: 80px 48px 0; max-width: 1440px; margin: 0 auto; }
+        .section-label { font-size: 9px; letter-spacing: .45em; text-transform: uppercase; font-weight: 400; color: var(--mid-grey); margin-bottom: 40px; text-align: center; }
+        .section-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 36px; }
+        .nav-arrows { display: flex; gap: 16px; }
+        .arrow-btn { background: none; border: 1px solid var(--border); width: 36px; height: 36px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .25s; font-size: 14px; color: var(--charcoal); }
+        .arrow-btn:hover { background: var(--charcoal); color: var(--oat); border-color: var(--charcoal); }
+
+        /* FEATURED TEXTURES */
+        .textures-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 16px; }
+        .texture-card { position: relative; overflow: hidden; cursor: pointer; background: #D8D3C9; }
+        .texture-card:first-child { aspect-ratio: 3/4; }
+        .texture-card:not(:first-child) { aspect-ratio: 4/5; }
+        .texture-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s cubic-bezier(.19,1,.22,1); display: block; }
+        .texture-card:hover img { transform: scale(1.06); }
+        .texture-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,18,14,.72) 0%, transparent 55%); display: flex; flex-direction: column; justify-content: flex-end; padding: 28px; }
+        .texture-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: #FAF8F4; margin-bottom: 10px; }
+        .view-link { font-size: 8px; letter-spacing: .35em; text-transform: uppercase; color: rgba(240,237,229,.55); text-decoration: none; transition: color .25s; }
+        .view-link:hover { color: var(--oat); }
+
+        /* placeholder shown when img fails */
+        .texture-card .ph, .style-card .ph, .product-img-wrap .ph {
+            position: absolute; inset: 0; display: none;
+            flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+            background: linear-gradient(135deg, #D8D4CB, #C5C0B5);
         }
-        h1, h2, h3, .brand-font { font-family: 'Playfair Display', serif; color: var(--charcoal); }
-        .text-charcoal { color: var(--charcoal); }
-        .border-charcoal { border-color: var(--charcoal); }
-        .bg-charcoal { background-color: var(--charcoal); }
-        
-        /* Centering Logic for Nav */
-        .nav-grid {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            align-items: center;
+        .texture-card .ph span, .style-card .ph span, .product-img-wrap .ph span {
+            font-size: 8px; letter-spacing: .3em; text-transform: uppercase; color: var(--mid-grey);
         }
+        img.broken + .ph { display: flex; }
+
+        /* STYLING GUIDE */
+        .styling-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .style-card { overflow: hidden; cursor: pointer; background: #D8D3C9; position: relative; }
+        .style-card-img { aspect-ratio: 3/4; overflow: hidden; position: relative; }
+        .style-card img { width: 100%; height: 100%; object-fit: cover; object-position: top center; transition: transform 1.2s cubic-bezier(.19,1,.22,1); display: block; }
+        .style-card:hover img { transform: scale(1.04); }
+        .dot-nav { display: flex; gap: 6px; padding: 14px 0 0; justify-content: center; }
+        .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--charcoal); opacity: .18; }
+        .dot.active { opacity: 1; }
+
+        /* PRODUCTS */
+        .arrivals-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+        .product-card { cursor: pointer; }
+        .product-img-wrap { aspect-ratio: 3/4; overflow: hidden; background: #D8D3C9; position: relative; margin-bottom: 14px; }
+        .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top center; transition: transform 1.2s cubic-bezier(.19,1,.22,1); display: block; }
+        .product-card:hover .product-img-wrap img { transform: scale(1.05); }
+        .quick-view { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(30,30,28,.82); backdrop-filter: blur(4px); padding: 12px; text-align: center; font-size: 7px; letter-spacing: .4em; text-transform: uppercase; color: var(--oat); opacity: 0; transform: translateY(4px); transition: all .35s ease; }
+        .product-card:hover .quick-view { opacity: 1; transform: translateY(0); }
+        .product-name { font-size: 10px; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; margin-bottom: 6px; }
+        .product-meta { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 8px; }
+        .product-origin { font-size: 10px; font-style: italic; color: var(--mid-grey); font-family: 'Cormorant Garamond', serif; }
+        .product-price { font-size: 12px; font-weight: 400; }
+
+        /* STORY */
+        .story-section { margin-top: 100px; background: var(--warm-white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 100px 48px; }
+        .story-inner { max-width: 1440px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .story-text { max-width: 480px; }
+        .story-eyebrow { font-size: 9px; letter-spacing: .45em; text-transform: uppercase; color: var(--mid-grey); margin-bottom: 24px; }
+        .story-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 4vw, 66px); font-weight: 300; font-style: italic; line-height: 1.1; margin-bottom: 28px; }
+        .story-body { font-size: 13px; font-weight: 300; line-height: 2; color: var(--mid-grey); margin-bottom: 36px; }
+        .story-img-wrap { position: relative; overflow: hidden; aspect-ratio: 4/5; background: #D8D3C9; }
+        .story-img-wrap img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.65); transition: filter 1.5s ease, transform 1.5s ease; display: block; }
+        .story-img-wrap:hover img { filter: saturate(1); transform: scale(1.03); }
+        .story-badge { position: absolute; bottom: 28px; right: 28px; background: var(--charcoal); color: var(--oat); padding: 20px; font-size: 8px; letter-spacing: .3em; text-transform: uppercase; text-align: center; line-height: 1.9; }
+
+        /* NEWSLETTER */
+        .newsletter-section { max-width: 1440px; margin: 0 auto; padding: 100px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; border-bottom: 1px solid var(--border); }
+        .newsletter-label { font-size: 9px; letter-spacing: .45em; text-transform: uppercase; color: var(--mid-grey); margin-bottom: 16px; }
+        .newsletter-title { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 300; font-style: italic; line-height: 1.15; }
+        .newsletter-form { display: flex; border-bottom: 1px solid var(--charcoal); padding-bottom: 8px; align-items: center; gap: 16px; }
+        .newsletter-input { flex: 1; background: none; border: none; outline: none; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: .15em; font-weight: 300; color: var(--charcoal); }
+        .newsletter-input::placeholder { color: var(--mid-grey); font-size: 9px; letter-spacing: .3em; text-transform: uppercase; }
+        .newsletter-submit { background: none; border: none; cursor: pointer; font-size: 18px; color: var(--charcoal); transition: transform .25s; }
+        .newsletter-submit:hover { transform: translateX(4px); }
+        .social-links { display: flex; gap: 24px; margin-top: 28px; }
+        .social-link { font-size: 9px; letter-spacing: .28em; text-transform: uppercase; color: var(--mid-grey); text-decoration: none; transition: color .25s; }
+        .social-link:hover { color: var(--charcoal); }
+
+        /* FOOTER */
+        footer { background: var(--charcoal); color: var(--oat); padding: 72px 48px 36px; }
+        .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 56px; border-bottom: 1px solid rgba(240,237,229,.08); margin-bottom: 36px; }
+        .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 600; letter-spacing: .5em; text-transform: uppercase; margin-bottom: 20px; display: block; }
+        .footer-tagline { font-size: 9px; letter-spacing: .3em; text-transform: uppercase; font-weight: 300; opacity: .35; line-height: 2; max-width: 260px; }
+        .footer-col h4 { font-size: 9px; letter-spacing: .3em; text-transform: uppercase; font-weight: 500; margin-bottom: 24px; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 14px; }
+        .footer-col ul li a { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: rgba(240,237,229,.38); text-decoration: none; transition: color .25s; font-weight: 300; }
+        .footer-col ul li a:hover { color: var(--oat); }
+        .footer-story p { font-size: 10px; font-weight: 300; line-height: 1.9; color: rgba(240,237,229,.38); max-width: 240px; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 8px; letter-spacing: .35em; text-transform: uppercase; color: rgba(240,237,229,.22); }
+
+        /* FADE ANIMATION */
+        .fade-up { opacity: 0; transform: translateY(28px); transition: opacity .85s ease, transform .85s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-track { background: var(--oat); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); }
     </style>
 </head>
-<body class="antialiased">
+<body>
 
-    <nav class="sticky top-0 z-50 bg-[#F2F0EA]/95 backdrop-blur-md px-8 py-6 nav-grid border-b border-gray-200">
-        <div class="flex space-x-8 text-[10px] uppercase tracking-[0.2em] font-medium hidden md:flex text-charcoal">
-            <a href="#" class="hover:opacity-50 transition">Shop the Edit</a>
-            <a href="#" class="hover:opacity-50 transition">Craft</a>
-            <a href="#" class="hover:opacity-50 transition">Sustainability</a>
+    <div class="announce">
+        Private Viewing: The Spring 2026 Tussar Archive — Complimentary Concierge Styling
+    </div>
+
+    <nav>
+        <div class="nav-left">
+            <a href="#">Shop the Edit</a>
+            <a href="#">Craft</a>
+            <a href="#">Sustainability</a>
         </div>
-        
-        <div class="text-3xl tracking-[0.5em] font-bold uppercase brand-font text-charcoal">Naro’s</div>
-        
-        <div class="flex justify-end items-center space-x-6 text-[10px] uppercase tracking-[0.2em] font-medium text-charcoal">
-            <a href="#" class="hidden md:block hover:opacity-50 transition">Search</a>
-            <a href="#" class="flex items-center">
-                <span>Bag (1)</span>
-            </a>
+        <a href="#" class="logo">Naro's</a>
+        <div class="nav-right">
+            <a href="#">Search</a>
+            <a href="#">Bag <span class="bag-count">1</span></a>
         </div>
     </nav>
 
-    <header class="relative h-[85vh] flex items-center justify-center overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?auto=format&fit=crop&q=80&w=2000" 
-             class="absolute inset-0 w-full h-full object-cover" alt="Hero Textile">
-        <div class="absolute inset-0 bg-black/10"></div>
-        
-        <div class="relative text-center px-6 max-w-3xl">
-            <h1 class="text-white text-5xl md:text-7xl mb-8 leading-tight italic drop-shadow-lg">
-                The Raw Elegance of Tussar.
-            </h1>
-            <p class="text-white uppercase tracking-[0.4em] text-[10px] mb-10 font-medium">Hand-loomed silk for the modern wardrobe.</p>
-            <button class="bg-transparent border border-white text-white px-10 py-4 text-[10px] uppercase tracking-[0.3em] hover:bg-white hover:text-charcoal transition-all duration-500">
-                Explore the Collection
-            </button>
+
+    <!-- ╔══════════════════════════════════════════════════╗
+         ║  HERO IMAGE                                      ║
+         ║  Recommended: Full-length model in tussar saree  ║
+         ║  Size: 2400×1600px minimum                       ║
+         ║  Replace the src below with your image path.     ║
+         ╚══════════════════════════════════════════════════╝ -->
+    <header class="hero">
+        <img
+            class="hero-img"
+            src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&q=90&w=2400"
+            alt="Naro's Hero — Tussar Silk"
+        >
+        <!-- YOUR IMAGE ↓ uncomment and update path when ready
+        <img class="hero-img" src="images/hero.jpg" alt="Naro's Hero">
+        -->
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <p class="hero-eyebrow">Curated for Leadership · Spring 2026</p>
+                <h1 class="hero-title">The Raw Elegance of Tussar. Hand-loomed silk for the modern wardrobe.</h1>
+                <a href="#" class="hero-cta">Explore the Collection</a>
+            </div>
+            <div class="hero-sidebar">Spring Archive · Bhagalpur · 2026</div>
         </div>
     </header>
 
-    <section class="max-w-7xl mx-auto px-8 py-24">
-        <h2 class="text-center text-[10px] uppercase tracking-[0.5em] mb-20 text-gray-500 font-bold">Featured Textures</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-            
-            <div class="group">
-                <div class="aspect-[4/5] overflow-hidden mb-8 bg-white shadow-sm p-3">
-                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=800" 
-                         class="w-full h-full object-cover grayscale-[20%]" alt="Texture 1">
+
+    <div class="filter-strip">
+        <div class="filter-inner">
+            <span class="filter-item active">All Drapes</span>
+            <span class="filter-item">Raw Ghicha</span>
+            <span class="filter-item">Copper Borders</span>
+            <span class="filter-item">Hand-Paint</span>
+            <span class="filter-item">Heavy Tussar</span>
+        </div>
+    </div>
+
+
+    <!-- ╔══════════════════════════════════════════════════╗
+         ║  FEATURED TEXTURES — 3 editorial cards           ║
+         ║  Card 1 (large): 3:4 portrait, styled model      ║
+         ║  Cards 2 & 3: 4:5 portrait, fabric/drape detail  ║
+         ║  Replace each src with your product image path.  ║
+         ╚══════════════════════════════════════════════════╝ -->
+    <section class="section-wrap fade-up">
+        <p class="section-label">Featured Textures</p>
+        <div class="textures-grid">
+
+            <!-- TEXTURE 1: Natural Slub Tussar — YOUR IMAGE: src="images/texture-slub.jpg" -->
+            <div class="texture-card">
+                <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&q=85&w=900&h=1200" alt="Natural Slub Tussar">
+                <div class="texture-card-overlay">
+                    <div class="texture-name">Natural Slub Tussar</div>
+                    <a href="#" class="view-link">View Details ↗</a>
                 </div>
-                <h3 class="text-lg mb-2 font-medium uppercase tracking-wider text-[12px] text-charcoal">Natural Slub Tussar</h3>
-                <p class="text-[9px] uppercase tracking-widest text-gray-400 border-b border-gray-300 inline-block pb-1">View Details</p>
             </div>
 
-            <div class="group">
-                <div class="aspect-[4/5] overflow-hidden mb-8 bg-white shadow-sm p-3">
-                    <img src="https://images.unsplash.com/photo-1505330622279-bf7d7fc918f4?auto=format&fit=crop&q=80&w=800" 
-                         class="w-full h-full object-cover grayscale-[20%]" alt="Texture 2">
+            <!-- TEXTURE 2: Hand-Painted Kalamkari — YOUR IMAGE: src="images/texture-kalamkari.jpg" -->
+            <div class="texture-card">
+                <img src="https://images.unsplash.com/photo-1583391733981-8498408ee4b6?auto=format&fit=crop&q=85&w=700&h=875" alt="Hand-Painted Kalamkari">
+                <div class="texture-card-overlay">
+                    <div class="texture-name">Hand-Painted Kalamkari</div>
+                    <a href="#" class="view-link">View Details ↗</a>
                 </div>
-                <h3 class="text-lg mb-2 font-medium uppercase tracking-wider text-[12px] text-charcoal text-center md:text-left">Hand-Painted Kalamkari</h3>
-                <p class="text-[9px] uppercase tracking-widest text-gray-400 border-b border-gray-300 inline-block pb-1">View Details</p>
             </div>
 
-            <div class="group">
-                <div class="aspect-[4/5] overflow-hidden mb-8 bg-white shadow-sm p-3">
-                    <img src="https://images.unsplash.com/photo-1590736962234-4066986504a3?auto=format&fit=crop&q=80&w=800" 
-                         class="w-full h-full object-cover grayscale-[20%]" alt="Texture 3">
+            <!-- TEXTURE 3: Minimalist Copper Border — YOUR IMAGE: src="images/texture-copper.jpg" -->
+            <div class="texture-card">
+                <img src="https://images.unsplash.com/photo-1590736962234-4066986504a3?auto=format&fit=crop&q=85&w=700&h=875" alt="Minimalist Copper Border">
+                <div class="texture-card-overlay">
+                    <div class="texture-name">Minimalist Copper Border</div>
+                    <a href="#" class="view-link">View Details ↗</a>
                 </div>
-                <h3 class="text-lg mb-2 font-medium uppercase tracking-wider text-[12px] text-charcoal">Minimalist Copper Border</h3>
-                <p class="text-[9px] uppercase tracking-widest text-gray-400 border-b border-gray-300 inline-block pb-1">View Details</p>
             </div>
 
         </div>
     </section>
 
-    <section class="bg-white py-24">
-        <div class="max-w-7xl mx-auto px-8">
-            <h2 class="text-center text-[10px] uppercase tracking-[0.5em] mb-20 text-gray-400 font-bold">Styling Guide</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-[#F2F0EA] p-10 flex flex-col items-center">
-                    <img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&q=80&w=600" class="w-full h-72 object-cover mb-8 mix-blend-multiply opacity-80" alt="Style 1">
-                    <p class="text-[10px] uppercase tracking-[0.2em] font-semibold text-charcoal">The Professional Edit</p>
-                </div>
-                <div class="bg-[#F2F0EA] p-10 flex flex-col items-center">
-                    <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&q=80&w=600" class="w-full h-72 object-cover mb-8 mix-blend-multiply opacity-80" alt="Style 2">
-                    <p class="text-[10px] uppercase tracking-[0.2em] font-semibold text-charcoal">Modern Minimalism</p>
-                </div>
-                <div class="bg-[#F2F0EA] p-10 flex flex-col items-center">
-                    <img src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?auto=format&fit=crop&q=80&w=600" class="w-full h-72 object-cover mb-8 mix-blend-multiply opacity-80" alt="Style 3">
-                    <p class="text-[10px] uppercase tracking-[0.2em] font-semibold text-charcoal">Evening Muse</p>
-                </div>
+
+    <!-- ╔══════════════════════════════════════════════════╗
+         ║  STYLING GUIDE — 3 look cards                    ║
+         ║  Best: model in full saree drape, portrait crop  ║
+         ║  Replace each src with your styled look image.   ║
+         ╚══════════════════════════════════════════════════╝ -->
+    <section class="section-wrap fade-up">
+        <div class="section-header">
+            <p class="section-label" style="margin-bottom:0">Styling Guide</p>
+            <div class="nav-arrows">
+                <button class="arrow-btn">←</button>
+                <button class="arrow-btn">→</button>
             </div>
+        </div>
+        <div class="styling-grid">
+
+            <!-- STYLE 1 — YOUR IMAGE: src="images/style-1.jpg" -->
+            <div class="style-card">
+                <div class="style-card-img">
+                    <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=85&w=600&h=750" alt="Styling Look 1">
+                </div>
+                <div class="dot-nav"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+            </div>
+
+            <!-- STYLE 2 — YOUR IMAGE: src="images/style-2.jpg" -->
+            <div class="style-card">
+                <div class="style-card-img">
+                    <img src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?auto=format&fit=crop&q=85&w=600&h=750" alt="Styling Look 2">
+                </div>
+                <div class="dot-nav"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+            </div>
+
+            <!-- STYLE 3 — YOUR IMAGE: src="images/style-3.jpg" -->
+            <div class="style-card">
+                <div class="style-card-img">
+                    <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?auto=format&fit=crop&q=85&w=600&h=750" alt="Styling Look 3">
+                </div>
+                <div class="dot-nav"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+            </div>
+
         </div>
     </section>
 
-    <footer class="bg-charcoal text-[#F2F0EA] py-24 px-12">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start">
-            <div class="mb-12 md:mb-0">
-                <div class="text-3xl tracking-[0.5em] font-bold uppercase brand-font mb-8">Naro’s</div>
-                <p class="text-[10px] uppercase tracking-[0.3em] max-w-xs leading-loose opacity-60">
-                    Crafting heritage since 2026. A collective dedicated to the soul of wild silk.
+
+    <!-- ╔══════════════════════════════════════════════════╗
+         ║  NEW ARRIVALS — 8 product cards (2 × 4 grid)    ║
+         ║  Best: product on model or flat-lay, 3:4 ratio   ║
+         ║  Size: 600×800px recommended                     ║
+         ║  Replace each src with your product photo.       ║
+         ╚══════════════════════════════════════════════════╝ -->
+    <section class="section-wrap fade-up">
+        <div class="section-header">
+            <p class="section-label" style="margin-bottom:0">New Arrivals</p>
+            <div class="nav-arrows">
+                <button class="arrow-btn">←</button>
+                <button class="arrow-btn">→</button>
+            </div>
+        </div>
+        <div class="arrivals-grid">
+
+            <!-- PRODUCT 1 — YOUR IMAGE: src="images/product-1.jpg" -->
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&q=80&w=600&h=800" alt="Natural Slub Tussar">
+                    <div class="quick-view">Quick View</div>
+                </div>
+                <div class="product-name">Natural Slub Tussar</div>
+                <div class="product-meta">
+                    <span class="product-origin">Bhagalpur Weave</span>
+                    <span class="product-price">₹18,500</span>
+                </div>
+            </div>
+
+            <!-- PRODUCT 2 — YOUR IMAGE: src="images/product-2.jpg" -->
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&q=80&w=600&h=800" alt="Handcrafted Tussar">
+                    <div class="quick-view">Quick View</div>
+                </div>
+                <div class="product-name">Handcrafted Tussar</div>
+                <div class="product-meta">
+                    <span class="product-origin">Jharkhand Loom</span>
+                    <span class="product-price">₹24,000</span>
+                </div>
+            </div>
+
+            <!-- PRODUCT 3 — YOUR IMAGE: src="images/product-3.jpg" -->
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?auto=format&fit=crop&q=80&w=600&h=800" alt="Isoori Aainess Saree">
+                    <div class="quick-view">Quick View</div>
+                </div>
+                <div class="product-name">Isoori Aainess Saree</div>
+                <div class="product-meta">
+                    <span class="product-origin">Traditional Finish</span>
+                    <span class="product-price">₹31,500</span>
+                </div>
+            </div>
+
+            <!-- PRODUCT 4 — YOUR IMAGE: src="images/product-4.jpg" -->
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?auto=format&fit=crop&q=80&w=600&h=800" alt="Copper Smt Sarees">
+                    <div class="quick-view">Quick View</div>
+                </div>
+                <div class="product-name">Copper Smt Sarees</div>
+                <div class="product-meta">
+                    <span class="product-origin">Corporate Edition</span>
+                    <span class="product-price">₹28,800</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ARRIVALS ROW 2 -->
+    <section class="section-wrap fade-up" style="padding-top: 16px; padding-bottom: 0;">
+        <div class="arrivals-grid">
+
+            <!-- PRODUCT 5 — YOUR IMAGE: src="images/product-5.jpg" -->
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=600&h=800" alt="Natural Sluss Tussar">
+                    <div class="quick-view">Quick View</div>
+                </div>
+                <div class="product-name">Natural Sluss Tussar</div>
+                <div class="product-meta">
+                    <span class="product-origin">Artisan Weave</span>
+                    <span class="product-price">₹15,000</span>
+                </div>
+            </div>
+
+            <!-- PRODUCT 6 — YOUR IMAGE: src="images/product-6.jpg" -->
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1583391733981-8498408ee4b6?auto=format&fit=crop&q=80&w=600&h=800" alt="Naanti Nkooss Saree">
+                    <div class="quick-view">Quick View</div>
+                </div>
+                <div class="product-name">Naanti Nkooss Saree</div>
+                <div class="product-meta">
+                    <span class="product-origin">Wild Silk</span>
+                    <span class="product-price">₹19,200</span>
+                </div>
+            </div>
+
+            <!-- PRODUCT 7 — YOUR IMAGE: src="images/product-7.jpg" -->
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1590736962234-4066986504a3?auto=format&fit=crop&q=80&w=600&h=800" alt="Copper Irialt Sarees">
+                    <div class="quick-view">Quick View</div>
+                </div>
+                <div class="product-name">Copper Irialt Sarees</div>
+                <div class="product-meta">
+                    <span class="product-origin">Zari Border</span>
+                    <span class="product-price">₹33,500</span>
+                </div>
+            </div>
+
+            <!-- PRODUCT 8 — YOUR IMAGE: src="images/product-8.jpg" -->
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?auto=format&fit=crop&q=80&w=600&h=800" alt="Tussar Geet Sarees">
+                    <div class="quick-view">Quick View</div>
+                </div>
+                <div class="product-name">Tussar Geet Sarees</div>
+                <div class="product-meta">
+                    <span class="product-origin">Kalamkari Print</span>
+                    <span class="product-price">₹41,000</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ╔══════════════════════════════════════════════════╗
+         ║  STORY IMAGE                                     ║
+         ║  Best: artisan at loom, silk thread close-up,   ║
+         ║  or weaving detail. Portrait 4:5.               ║
+         ║  Replace src below with your image.             ║
+         ╚══════════════════════════════════════════════════╝ -->
+    <section class="story-section fade-up">
+        <div class="story-inner">
+            <div class="story-text">
+                <p class="story-eyebrow">Crafting Heritage since 2026</p>
+                <h2 class="story-title">Authenticity over Perfection. Always.</h2>
+                <p class="story-body">
+                    At Naro's, we reject the industrial uniformity of modern fashion. Our Tussar is woven for those who understand that a hand-loomed "slub" is a badge of honor—a testament to the weaver's rhythm and a story told in thread. We embrace colour and celebrate craftsmanship.
                 </p>
+                <a href="#" class="hero-cta" style="color: var(--charcoal); border-color: var(--charcoal);">Learn More ↗</a>
             </div>
-            <div class="flex space-x-24 text-[10px] uppercase tracking-[0.3em]">
-                <div class="space-y-6">
-                    <h4 class="font-bold opacity-100 mb-8">Social</h4>
-                    <a href="#" class="block opacity-60 hover:opacity-100">About</a>
-                    <a href="#" class="block opacity-60 hover:opacity-100">Blogs</a>
-                    <a href="#" class="block opacity-60 hover:opacity-100">Contact</a>
-                </div>
-                <div class="space-y-6">
-                    <h4 class="font-bold opacity-100 mb-8">Service</h4>
-                    <a href="#" class="block opacity-60 hover:opacity-100">Shipping</a>
-                    <a href="#" class="block opacity-60 hover:opacity-100">Returns</a>
-                    <a href="#" class="block opacity-60 hover:opacity-100">FAQ</a>
-                </div>
+            <div class="story-img-wrap">
+                <!-- YOUR IMAGE ↓ replace src="images/story.jpg" -->
+                <img src="https://images.unsplash.com/photo-1610189012906-4404073a6286?auto=format&fit=crop&q=85&w=900" alt="Silk Weaving Detail">
+                <div class="story-badge">Hand-Loomed<br>in Bharat<br>Since 2026</div>
             </div>
+        </div>
+    </section>
+
+
+    <div class="newsletter-section fade-up">
+        <div>
+            <p class="newsletter-label">Join the Collective</p>
+            <h3 class="newsletter-title">Stay close to the craft.</h3>
+        </div>
+        <div>
+            <div class="newsletter-form">
+                <input class="newsletter-input" type="email" placeholder="Enter your email">
+                <button class="newsletter-submit">→</button>
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link">Instagram</a>
+                <a href="#" class="social-link">Pinterest</a>
+                <a href="#" class="social-link">YouTube</a>
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        <div class="footer-top">
+            <div>
+                <span class="footer-logo">Naro's</span>
+                <p class="footer-tagline">Bureaucratic heritage meets artisanal wild silk. Crafted in India for the global landscape.</p>
+            </div>
+            <div class="footer-col">
+                <h4>The Collective</h4>
+                <ul>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Blogs</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Puvrisaar Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-col footer-story">
+                <h4>Story</h4>
+                <p>Crafting heritage since 2026. We embrace colour and celebrate craftsmanship—every thread a conscious choice.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 Naro's Global.</span>
+            <span>Hand-Loomed in Bharat.</span>
         </div>
     </footer>
+
+
+    <script>
+        // Filter strip
+        document.querySelectorAll('.filter-item').forEach(item => {
+            item.addEventListener('click', function () {
+                document.querySelectorAll('.filter-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Scroll fade-up
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('visible'), i * 80);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.06 });
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    </script>
 
 </body>
 </html>
